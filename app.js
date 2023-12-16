@@ -4,37 +4,36 @@ App({
         _deviceId:null,
         _service: {},
         _characteristics: [],
-        _characteristics_write_index: -1,   // _characteristics中具有写功能的特征ID
         _devices: [
             {
                 deviceId: 3,
                 name: "name1",
-                type: "heater"
+                type: "00AA55"
             },
             {
                 deviceId: 1,
                 name: "name1",
-                type: "fan"
+                type: "00AA55"
             },
             {
                 deviceId: 2,
                 name: 'name2',
-                type: "fan"
+                type: "00AA55"
             },
             {
                 deviceId: 3,
                 name: "name1",
-                type: "heater"
+                type: "00AA55"
             },
             {
                 deviceId: 1,
                 name: "name1",
-                type: "fan"
+                type: "00AA55"
             },
             {
                 deviceId: 2,
                 name: 'name222222222222222',
-                type: "fan"
+                type: "00AA55"
             }
         ]
     },
