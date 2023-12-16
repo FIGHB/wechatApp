@@ -1,0 +1,13 @@
+{
+  "pages":[
+    "pages/home/home",
+    "pages/bluetooth/bluetooth",
+    "pages/publicfan/publicfan"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "取暖器",
+    "navigationBarTextStyle":"black"
+  }
+}

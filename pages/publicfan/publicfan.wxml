@@ -1,0 +1,4 @@
+<!--pages/publicfan/publicfan.wxml-->
+<text>pages/publicfan/publicfan.wxml</text>
+<text>{{deviceId}}</text>
+<button bind:tap="writeBLECharacteristicValue" data-uart="55 AA 03 00 03 A5">发送</button>

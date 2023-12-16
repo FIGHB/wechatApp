@@ -1,0 +1,10 @@
+<text>已扫描到{{device_arr.length}}个设备</text>
+<view wx:for="{{device_arr}}"
+      wx:key="index"
+      bind:tap="f_creatConnect"
+      data-device-id="{{item.deviceId}}"
+      data-name="{{item.name||item.localName}}">
+<button>
+  {{index}}--{{item.deviceId}}--{{item.localName}}
+</button>
+</view>
