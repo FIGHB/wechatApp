@@ -11,16 +11,14 @@ function inArray(arr, key, val) {
 }
 
 function ab2hex(buffer) {
-    var hexArr = Array.prototype.map.call(
+    var hexArr = Array.prototype.map.call(  // 对原数组中的每个数都调用一边回调函数,然后组成新的数组返回
         new Uint8Array(buffer),
         function (bit) {
-            return ('00' + bit.toString(16)).slice(-2) // 截取最后两个
+            return ('00' + bit.toString(16)).slice(-2) // 截取最后两个,toString(16)表示转换成16进制,默认十进制
         }
     )
     return hexArr.join('');
 }
-
-
 
 Page({
     /**
@@ -122,8 +120,8 @@ Page({
                 if (!device.name && !device.localName) {
                     return
                 }
-                const hex_bytes = ab2hex(device.advertisData)
-                console.log("hex_bytes: ", hex_bytes)
+                const advertisData = ab2hex(device.advertisData)
+                console.log("advertisData: ", advertisData)
                 const foundDevices = that.data.device_arr
                 const everConnected = inArray(app.globalData._devices, 'deviceId', device.deviceId)
                 if (everConnected === -1) {

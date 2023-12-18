@@ -1,6 +1,6 @@
 /* pages/index/index.wxss */
 page {
-  background-color: black;
+  background-color: #f6f6f6;
 }
 .card_container {
   display: flex;
@@ -8,7 +8,7 @@ page {
   align-items: center;
   justify-content: space-around;
   row-gap: 30rpx;
-  background-color: beige;
+  /* background-color: beige; */
   margin-top: 30rpx;
 }
 
@@ -16,7 +16,9 @@ page {
   display: flex;
   width: 320rpx;
   height: 160rpx;
-  background-color: aqua;
+  background-color: #ffffff;
+  box-shadow: 1px 1px 2px #b6b6b6,1px 1px 2px #b6b6b6,1px 1px 2px #b6b6b6;
+  border-radius: 0.5rem;
   padding: 5rpx;
 }
 .card_left {

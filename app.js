@@ -6,34 +6,52 @@ App({
         _characteristics: [],
         _devices: [
             {
-                deviceId: 3,
-                name: "name1",
-                type: "00AA55"
-            },
-            {
                 deviceId: 1,
                 name: "name1",
-                type: "00AA55"
+                type: "00AA55",
+                serviceId: null,
+                characteristicWriteId:null,
+                characteristicNotifyId: null
             },
             {
                 deviceId: 2,
-                name: 'name2',
-                type: "00AA55"
+                name: "name2",
+                type: "01AA55",
+                serviceId: null,
+                characteristicWriteId:null,
+                characteristicNotifyId: null
             },
             {
                 deviceId: 3,
                 name: "name1",
-                type: "00AA55"
+                type: "00AA55",
+                serviceId: null,
+                characteristicWriteId:null,
+                characteristicNotifyId: null
             },
             {
-                deviceId: 1,
+                deviceId: 4,
                 name: "name1",
-                type: "00AA55"
+                type: "00AA55",
+                serviceId: null,
+                characteristicWriteId:null,
+                characteristicNotifyId: null
             },
             {
-                deviceId: 2,
-                name: 'name222222222222222',
-                type: "00AA55"
+                deviceId: 5,
+                name: "name1",
+                type: "00AA55",
+                serviceId: null,
+                characteristicWriteId:null,
+                characteristicNotifyId: null
+            },
+            {
+                deviceId: 6,
+                name: "name1",
+                type: "01AA55",
+                serviceId: null,
+                characteristicWriteId:null,
+                characteristicNotifyId: null
             }
         ]
     },

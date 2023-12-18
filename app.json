@@ -2,12 +2,13 @@
   "pages":[
     "pages/home/home",
     "pages/bluetooth/bluetooth",
-    "pages/publicfan/publicfan"
+    "pages/publicfan/publicfan",
+    "pages/publicheater/publicheater"
   ],
   "window":{
     "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "取暖器",
+    "navigationBarBackgroundColor": "#f6f6f6",
+    "navigationBarTitleText": "芯连万物",
     "navigationBarTextStyle":"black"
   }
 }

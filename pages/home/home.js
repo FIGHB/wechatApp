@@ -5,6 +5,10 @@ Page({
      * 页面的初始数据
      */
     data: {
+        typeImageDict: {
+            "00AA55": ["/images/00AA55.svg", "/pages/publicfan/publicfan"],
+            "01AA55": ["/images/01AA55.svg", "/pages/publicheater/publicheater"],
+        },
         devices:[],
     },
     f_add_device:function () {

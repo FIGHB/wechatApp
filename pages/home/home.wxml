@@ -1,7 +1,7 @@
 <view class="card_container">
   <view class="card" wx:for="{{devices}}" wx:key="index">
     <view class="card_left">
-      <image id="card_left_image" src="/images/55AA00.png"></image>
+      <image id="card_left_image" src="{{typeImageDict[item.type][0]}}"></image>
     </view>
     <view class="card_right">
       <view class="card_right_up">
