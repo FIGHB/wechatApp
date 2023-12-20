@@ -26,8 +26,6 @@ Page({
      */
     data: {
         device_arr: [],
-        deviceId: null,
-        name: null
     },
     f_creatConnect(e) {
         var dataset = e.currentTarget.dataset
@@ -36,30 +34,18 @@ Page({
         wx.createBLEConnection({
             deviceId,
             success: (res) => {
-                this.setData({
-                    connected: true,
-                    deviceId: deviceId,
-                    name: name
-                })
                 wx.stopBluetoothDevicesDiscovery()
-                app.globalData._devices.push({
-                    id: deviceId,
-                    name: name,
-                    type: "fan"
-                })
                 app.globalData._connected = true;
                 app.globalData._deviceId = deviceId;
-                this.f_getBLEDeviceServices(deviceId)
+                this.f_getBLEDeviceServices(deviceId, name)
             }
         })
     },
-    f_getBLEDeviceServices(deviceId) {
+    f_getBLEDeviceServices(deviceId, name) {
         wx.getBLEDeviceServices({
-            deviceId: app.globalData._deviceId,
+            deviceId: deviceId,
             success: (res) => {
-                // console.log('res.services.length: ', res.services.length)
                 for (let i = 0; i < res.services.length; i++) {
-                    // console.log("PrimaryId: ", res.services[i].uuid)
                     if (res.services[i].isPrimary && res.services[i].uuid.includes('AE20')) {
                         var service = res.services[i]
                         wx.getBLEDeviceCharacteristics({
@@ -68,10 +54,24 @@ Page({
                             success(res) {
                                 app.globalData._service = service
                                 app.globalData._characteristics = res.characteristics
-                                // console.log('device getBLEDeviceCharacteristics:', res.characteristics)
-                                // console.log('res.characteristics[0].uuid:', res.characteristics[0].uuid)
-                                // console.log('res.characteristics[0].properties.read:', res.characteristics[0].properties.read)
-                                // console.log('res.characteristics[0].properties.write:', res.characteristics[0].properties.write)
+                                var characteristicWriteId = null;
+                                var characteristicNotifyId = null;
+                                res.characteristics.forEach(item => {
+                                    if (item.properties.notify) {
+                                        characteristicNotifyId = item.uuid
+                                    }
+                                    if(item.properties.write) {
+                                        characteristicWriteId = item.uuid
+                                    }
+                                })
+                                app.globalData._devices.push({
+                                    deviceId: deviceId,
+                                    serviceId: res.services[i].uuid,
+                                    name: name,
+                                    type: "00AA55",
+                                    characteristicWriteId: characteristicWriteId,
+                                    characteristicNotifyId: characteristicNotifyId
+                                })
                                 wx.redirectTo({
                                     url: '/pages/publicfan/publicfan?deviceId=' + deviceId,
                                 })
@@ -87,11 +87,12 @@ Page({
     },
     f_openBluetoothAdapter() {
         var that = this
+        wx.closeBluetoothAdapter()
         wx.openBluetoothAdapter({ // 开启蓝牙适配器
             success: (res) => {
                 console.log('openBluetoothAdapter-success-res: ', res)
+                app.globalData._isBluetoothAdapter = true
                 this.f_startBluetoothDevicesDiscovery()
-                console.log("success (res): ", this)
             },
             fail(res) {
                 console.log('openBluetoothAdapter-fail-res: ', res)
@@ -186,6 +187,7 @@ Page({
      * 生命周期函数--监听页面卸载
      */
     onUnload() {
+
         console.log("bluetooth onUnload")
     },
 

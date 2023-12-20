@@ -5,7 +5,7 @@ Page({
      * 页面的初始数据
      */
     data: {
-        typeImageDict: {
+        typeDict: {
             "00AA55": ["/images/00AA55.svg", "/pages/publicfan/publicfan"],
             "01AA55": ["/images/01AA55.svg", "/pages/publicheater/publicheater"],
         },
@@ -14,6 +14,32 @@ Page({
     f_add_device:function () {
         wx.navigateTo({
           url: '/pages/bluetooth/bluetooth',
+        })
+    },
+    f_creat_connect: function(e) {
+        var that = this
+        var dataset = e.currentTarget.dataset
+        var deviceId = dataset.deviceId
+        var deviceType = dataset.deviceType
+        console.log("deviceId to creat connect: ", deviceId)
+        wx.closeBluetoothAdapter()
+        wx.openBluetoothAdapter({ // 开启蓝牙适配器
+            success: (res) => {
+                console.log('openBluetoothAdapter-success-res: ', res)
+                wx.createBLEConnection({
+                    deviceId,
+                    success: (res) => {
+                        app.globalData._connected = true;
+                        app.globalData._deviceId = deviceId;
+                        wx.navigateTo({
+                          url: that.data.typeDict[deviceType][1],
+                        })
+                    }
+                })
+            },
+            fail(res) {
+                console.log('openBluetoothAdapter-fail-res: ', res)
+            }
         })
     },
     /**

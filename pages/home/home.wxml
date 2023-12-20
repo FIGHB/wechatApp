@@ -1,7 +1,11 @@
 <view class="card_container">
-  <view class="card" wx:for="{{devices}}" wx:key="index">
+  <view class="card" wx:for="{{devices}}" 
+                wx:key="index" 
+                bind:tap="f_creat_connect"
+                data-device-id="{{item.deviceId}}"
+                data-device-type="{{item.type}}">
     <view class="card_left">
-      <image id="card_left_image" src="{{typeImageDict[item.type][0]}}"></image>
+      <image id="card_left_image" src="{{typeDict[item.type][0]}}"></image>
     </view>
     <view class="card_right">
       <view class="card_right_up">

@@ -2,7 +2,8 @@ App({
     globalData:{
         _connected: false,   // 是否创建链接
         _deviceId:null,
-        _service: {},
+        _isBluetoothAdapter: false,
+        _connectDevice: {},
         _characteristics: [],
         _devices: [
             {
