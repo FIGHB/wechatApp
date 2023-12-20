@@ -1,0 +1,8 @@
+/* css/base/base.wxss */
+page {
+    --main-bg-color: #F6F6EE;
+    --base-color: #7AA1A8;
+    --box-shadow-color: #b6b6b6;
+    background-color: var(--main-bg-color);
+    color: var(--main-bg-color);
+}

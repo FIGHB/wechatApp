@@ -1,1 +1,2 @@
 /* pages/bluetooth/bluetooth.wxss */
+@import "/css/base/base.wxss";

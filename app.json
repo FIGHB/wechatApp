@@ -3,11 +3,12 @@
     "pages/home/home",
     "pages/bluetooth/bluetooth",
     "pages/publicfan/publicfan",
-    "pages/publicheater/publicheater"
+    "pages/publicheater/publicheater",
+    "css/base/base"
   ],
   "window":{
     "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#f6f6f6",
+    "navigationBarBackgroundColor": "#F6F6EE",
     "navigationBarTitleText": "芯连万物",
     "navigationBarTextStyle":"black"
   }
