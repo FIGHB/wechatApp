@@ -2,6 +2,7 @@
   <view class="card" wx:for="{{devices}}" 
                 wx:key="index" 
                 bind:tap="f_creat_connect"
+                data-index="index"
                 data-device-id="{{item.deviceId}}"
                 data-device-type="{{item.type}}">
     <view class="card_left">

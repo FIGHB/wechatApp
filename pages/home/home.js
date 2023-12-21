@@ -5,10 +5,7 @@ Page({
      * 页面的初始数据
      */
     data: {
-        typeDict: {
-            "00AA55": ["/images/00AA55.svg", "/pages/publicfan/publicfan"],
-            "01AA55": ["/images/01AA55.svg", "/pages/publicheater/publicheater"],
-        },
+        typeDict: [],
         devices:[],
     },
     f_add_device:function () {
@@ -21,16 +18,15 @@ Page({
         var dataset = e.currentTarget.dataset
         var deviceId = dataset.deviceId
         var deviceType = dataset.deviceType
-        console.log("deviceId to creat connect: ", deviceId)
+        var index = dataset.index
         wx.closeBluetoothAdapter()
         wx.openBluetoothAdapter({ // 开启蓝牙适配器
             success: (res) => {
-                console.log('openBluetoothAdapter-success-res: ', res)
                 wx.createBLEConnection({
                     deviceId,
                     success: (res) => {
                         app.globalData._connected = true;
-                        app.globalData._deviceId = deviceId;
+                        app.globalData._deviceIndex = index;
                         wx.navigateTo({
                           url: that.data.typeDict[deviceType][1],
                         })
@@ -46,9 +42,6 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad(options) {
-        this.setData({
-            devices: app.globalData._devices
-          });
     },
 
     /**
@@ -63,8 +56,10 @@ Page({
      */
     onShow() {
         this.setData({
-            devices: app.globalData._devices
+            devices: app.globalData._devices,
+            typeDict: app.globalData._typeDict
           });
+          console.log("home onload devices: ", this.data.devices)
     },
 
     /**

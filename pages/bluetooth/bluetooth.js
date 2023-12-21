@@ -29,59 +29,64 @@ Page({
     },
     f_creatConnect(e) {
         var dataset = e.currentTarget.dataset
-        var deviceId = dataset.deviceId
+        var index = dataset.index
+        var deviceId = this.data.device_arr[index].deviceId
         var name = dataset.name
+        var advertisData = ab2hex(this.data.device_arr[index].advertisData).toUpperCase()
         wx.createBLEConnection({
             deviceId,
             success: (res) => {
                 wx.stopBluetoothDevicesDiscovery()
                 app.globalData._connected = true;
-                app.globalData._deviceId = deviceId;
-                this.f_getBLEDeviceServices(deviceId, name)
+                this.f_getBLEDeviceServices(deviceId, name, advertisData)
             }
         })
     },
-    f_getBLEDeviceServices(deviceId, name) {
+    f_getBLEDeviceServices(deviceId, name, advertisData) {
         wx.getBLEDeviceServices({
             deviceId: deviceId,
             success: (res) => {
                 for (let i = 0; i < res.services.length; i++) {
                     if (res.services[i].isPrimary && res.services[i].uuid.includes('AE20')) {
-                        var service = res.services[i]
-                        wx.getBLEDeviceCharacteristics({
-                            deviceId: deviceId,
-                            serviceId: res.services[i].uuid,
-                            success(res) {
-                                app.globalData._service = service
-                                app.globalData._characteristics = res.characteristics
-                                var characteristicWriteId = null;
-                                var characteristicNotifyId = null;
-                                res.characteristics.forEach(item => {
-                                    if (item.properties.notify) {
-                                        characteristicNotifyId = item.uuid
-                                    }
-                                    if(item.properties.write) {
-                                        characteristicWriteId = item.uuid
-                                    }
-                                })
-                                app.globalData._devices.push({
-                                    deviceId: deviceId,
-                                    serviceId: res.services[i].uuid,
-                                    name: name,
-                                    type: "00AA55",
-                                    characteristicWriteId: characteristicWriteId,
-                                    characteristicNotifyId: characteristicNotifyId
-                                })
-                                wx.redirectTo({
-                                    url: '/pages/publicfan/publicfan?deviceId=' + deviceId,
-                                })
-                            }
-                        })
+                        var serviceId = res.services[i].uuid
+                        this.f_getBLEDeviceCharacteristics(deviceId, serviceId, name, advertisData)
                     }
                 }
             },
             fail: (res) => {
                 console.log("getBLEDeviceServices: ", res)
+            }
+        })
+    },
+    f_getBLEDeviceCharacteristics(deviceId, serviceId, name, advertisData) {
+        wx.getBLEDeviceCharacteristics({
+            deviceId: deviceId,
+            serviceId: serviceId,
+            success(res) {
+                var characteristicWriteId = null;
+                var characteristicNotifyId = null;
+                res.characteristics.forEach(item => {
+                    if (item.properties.notify) {
+                        characteristicNotifyId = item.uuid
+                    }else if(item.properties.write) {
+                        characteristicWriteId = item.uuid
+                    }
+                })
+                if(characteristicWriteId && characteristicNotifyId) {
+                    app.globalData._devices.unshift({   // 将元素添加到数组开头
+                        deviceId: deviceId,
+                        serviceId: serviceId,
+                        name: name,
+                        type: advertisData,
+                        characteristicWriteId: characteristicWriteId,
+                        characteristicNotifyId: characteristicNotifyId
+                    })
+                    app.globalData._deviceIndex = 0;
+                    wx.redirectTo({
+                        url: '/pages/publicfan/publicfan',
+                    })
+                }
+
             }
         })
     },
@@ -157,6 +162,7 @@ Page({
                 deviceId: app.globalData._deviceId,
                 success(res) {
                     console.log("bluetooth close successed: ", res)
+                    app.globalData._connected = false
                 }
             })
             wx.closeBluetoothAdapter({
@@ -164,7 +170,6 @@ Page({
                     console.log("success close BluetoothAdapter: ", res)
                 }
             })
-            app.globalData._connected = false;
         }
         this.f_openBluetoothAdapter();
     },
@@ -210,7 +215,6 @@ Page({
 
     }
 })
-
 
 module.exports.inArray = inArray
 module.exports.ab2hex = ab2hex

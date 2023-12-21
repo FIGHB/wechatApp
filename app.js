@@ -1,59 +1,20 @@
 App({
     globalData:{
-        _connected: false,   // 是否创建链接
-        _deviceId:null,
-        _isBluetoothAdapter: false,
-        _connectDevice: {},
-        _characteristics: [],
+        _typeDict: { // 不同页面和图片导航
+            "00AA55": ["/images/00AA55.svg", "/pages/publicfan/publicfan"],
+            "01AA55": ["/images/01AA55.svg", "/pages/publicheater/publicheater"],
+        },
+        _connected: false,   // 是否已连接设备
+        _deviceIndex:-1,    // 连接的设备在 _devices 中的下标
         _devices: [
-            {
-                deviceId: 1,
-                name: "name1",
-                type: "00AA55",
-                serviceId: null,
-                characteristicWriteId:null,
-                characteristicNotifyId: null
-            },
-            {
-                deviceId: 2,
-                name: "name2",
-                type: "01AA55",
-                serviceId: null,
-                characteristicWriteId:null,
-                characteristicNotifyId: null
-            },
-            {
-                deviceId: 3,
-                name: "name1",
-                type: "00AA55",
-                serviceId: null,
-                characteristicWriteId:null,
-                characteristicNotifyId: null
-            },
-            {
-                deviceId: 4,
-                name: "name1",
-                type: "00AA55",
-                serviceId: null,
-                characteristicWriteId:null,
-                characteristicNotifyId: null
-            },
-            {
-                deviceId: 5,
-                name: "name1",
-                type: "00AA55",
-                serviceId: null,
-                characteristicWriteId:null,
-                characteristicNotifyId: null
-            },
-            {
-                deviceId: 6,
-                name: "name1",
-                type: "01AA55",
-                serviceId: null,
-                characteristicWriteId:null,
-                characteristicNotifyId: null
-            }
+            // {
+            //     deviceId: 1,
+            //     name: "name1",
+            //     type: "00AA55",
+            //     serviceId: null,
+            //     characteristicWriteId:null,
+            //     characteristicNotifyId: null
+            // },
         ]
     },
 })

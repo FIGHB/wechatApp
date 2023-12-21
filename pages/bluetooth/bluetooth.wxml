@@ -2,6 +2,7 @@
 <view wx:for="{{device_arr}}"
       wx:key="index"
       bind:tap="f_creatConnect"
+      data-index="{{index}}"
       data-device-id="{{item.deviceId}}"
       data-name="{{item.name||item.localName}}">
 <button>

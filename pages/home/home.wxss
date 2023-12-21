@@ -7,7 +7,6 @@
   align-items: center;
   justify-content: space-around;
   row-gap: 30rpx;
-  /* background-color: beige; */
   margin-top: 30rpx;
 }
 
@@ -15,7 +14,7 @@
   display: flex;
   width: 320rpx;
   height: 160rpx;
-  background-color: #7AA1A8;
+  background-color: var(--base-color);
   box-shadow: 1px 1px 2px var(--box-shadow-color),1px 1px 2px var(--box-shadow-color),1px 1px 2px var(--box-shadow-color);
   border-radius: 0.5rem;
   padding: 5rpx;
